@@ -1,3 +1,5 @@
+// Code by student: Dan
+
 let TOO_COLD = 0
 let TOO_HOT = 1
 let IN_RANGE = 2
@@ -33,16 +35,16 @@ function updateSystem() {
 }
 
 function evaluateState(state: number) {
-    if (temperature > 20 && temperature <= 30){
+    if (temperature > 20 && temperature <= 30) {
         return IN_RANGE
     }
-    else if (temperature <= 20){
+    else if (temperature <= 20) {
         return TOO_COLD
     }
-    else if (temperature >30){
+    else if (temperature > 30) {
         return TOO_HOT
     }
-    else{
+    else {
         return state
     }
 }
@@ -64,15 +66,15 @@ function reactToState(state: number) {
     }
 }
 
-function heater_on(){
+function heater_on() {
     pins.digitalWritePin(DigitalPin.P1, 1)
 }
 
-function heater_off(){
+function heater_off() {
     pins.digitalWritePin(DigitalPin.P1, 0)
 }
 
-function cooler_on(){
+function cooler_on() {
     pins.digitalWritePin(DigitalPin.P2, 1)
 }
 
@@ -85,3 +87,5 @@ basic.forever(function () {
     state = evaluateState(state)
     reactToState(state)
 })
+
+
