@@ -23,11 +23,13 @@ function show_blue() {
 }
 
 function readTemperature() {
-    return pins.analogReadPin(AnalogPin.P0)
+    let analogValue = pins.analogReadPin(AnalogPin.P0)
+    return Math.map(analogValue, 0, 1023, -10, 80)
 }
 
 function updateSystem() {
     temperature = readTemperature()
+    serial.writeLine(temperature.toString())
 }
 
 function evaluateState(state: number) {
@@ -47,17 +49,37 @@ function evaluateState(state: number) {
 function reactToState(state: number) {
     if (state == TOO_COLD) {
         show_red()
-        // Red, Cooler Off, Heater On
+        heater_on()
+        cooler_off()
     }
     else if (state == TOO_HOT) {
         show_blue()
-        // Blue, Coolor On, Heater Off
+        heater_off()
+        cooler_on()
     }
     else {
         show_green()
-        // Green, Cooler Off, Heater Off
+        heater_off()
+        cooler_off()
     }
 }
+
+function heater_on(){
+    pins.digitalWritePin(DigitalPin.P1, 1)
+}
+
+function heater_off(){
+    pins.digitalWritePin(DigitalPin.P1, 0)
+}
+
+function cooler_on(){
+    pins.digitalWritePin(DigitalPin.P2, 1)
+}
+
+function cooler_off() {
+    pins.digitalWritePin(DigitalPin.P2, 0)
+}
+
 basic.forever(function () {
     updateSystem()
     state = evaluateState(state)
