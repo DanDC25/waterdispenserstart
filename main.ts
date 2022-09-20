@@ -1,4 +1,4 @@
-// Code by student: Dan
+// Code by: Dan
 
 let TOO_COLD = 0
 let TOO_HOT = 1
