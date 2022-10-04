@@ -7,7 +7,7 @@ let IN_RANGE = 2
 let state: number = IN_RANGE
 let temperature: number = 0
 
-let strip = neopixel.create(DigitalPin.P4, 4, NeoPixelMode.RGB)
+let strip = neopixel.create(DigitalPin.P4, 8, NeoPixelMode.RGB)
 
 function show_red() {
     strip.showColor(neopixel.rgb(255, 0, 0))
